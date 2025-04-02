@@ -33,8 +33,14 @@ const MovieCard = ({title, category}) => {
   
   useEffect(()=>{
     fetch(`https://api.themoviedb.org/3/movie/${category ? category : "now_playing"}?language=en-US`, options)
-      .then(res => res.json())
-      .then(res => console.log(res.results || []))
+      .then(res => {
+        if(!res.ok){
+          throw new Error(`HTTP error ! Status ${res.status}`)
+        } else{
+          return res.json();
+        }
+      })
+      .then(res => setApiData(res.results || []))
       .catch(err => console.error(err));
 
     const cardContainer = cardRef.current;
@@ -82,7 +88,6 @@ const MovieCard = ({title, category}) => {
                   </p>
                 </div>
               </div>
-
             </Link>
           </div>
         ))}
