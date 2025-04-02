@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAuth } from '../../context/AuthContext/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import MovieCard from '../../components/MovieCard/MovieCard';
 
 const Home = () => {
   const { user , logout } = useAuth();
@@ -17,6 +18,7 @@ const Home = () => {
         <button onClick={logout} className='bg-red-500 text-white px-4 py-2 mt-4 rounded'>
             Logout
         </button>
+        <MovieCard/>
     </div>
   )
 }
