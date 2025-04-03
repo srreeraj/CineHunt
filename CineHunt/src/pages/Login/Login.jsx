@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, User, AlertCircle, CheckCircle, Loader2 } from 'lucide-react';
 
 const Login = () => {
-  const { user, login } = useAuth();
+  const { user, loginWithGoogle, loginWithEmail, signUpWithEmail }= useAuth();
   const navigate = useNavigate();
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formStatus, setFormStatus] = useState({ type: '', message: '' });
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   
   const [formData, setFormData] = useState({
     email: '',
@@ -105,22 +106,48 @@ const Login = () => {
     checkPasswordStrength(formData.password);
   }, [formData.password]);
 
+
+  const handleGoogleSignIn = async () => {
+    setIsGoogleLoading(true);
+    try {
+      await loginWithGoogle();
+      navigate('/');
+    } catch (error) {
+      setFormStatus({ 
+        type: 'error', 
+        message: error.message || 'Google sign-in failed. Please try again.' 
+      });
+    } finally {
+      setIsGoogleLoading(false);
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
       setIsLoading(true);
+      setFormStatus({ type: '', message: '' });
       
       try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // For demonstration purposes - success for valid input, would connect to actual auth system
-        if (formData.email && formData.password) {
-          await login(); // Your actual login function
-          setFormStatus({ type: 'success', message: `${isSignUp ? 'Account created successfully!' : 'Signed in successfully!'}` });
+        if (isSignUp) {
+          await signUpWithEmail(formData.email, formData.password);
+          setFormStatus({ 
+            type: 'success', 
+            message: 'Account created successfully!' 
+          });
+        } else {
+          await loginWithEmail(formData.email, formData.password);
+          setFormStatus({ 
+            type: 'success', 
+            message: 'Signed in successfully!' 
+          });
         }
+        navigate('/');
       } catch (error) {
-        setFormStatus({ type: 'error', message: error.message || 'Authentication failed. Please try again.' });
+        setFormStatus({ 
+          type: 'error', 
+          message: error.message || 'Authentication failed. Please try again.' 
+        });
       } finally {
         setIsLoading(false);
       }
@@ -339,15 +366,23 @@ const Login = () => {
 
         <div className="grid grid-cols-1 gap-3">
           <button
-            onClick={login}
-            className="w-full flex items-center justify-center gap-2 bg-white text-gray-800 rounded-lg py-3 font-medium transition duration-300 hover:bg-gray-100"
+            type="button"
+            onClick={handleGoogleSignIn}
+            disabled={isGoogleLoading}
+            className="w-full flex items-center justify-center gap-2 bg-white text-gray-800 rounded-lg py-3 font-medium transition duration-300 hover:bg-gray-100 disabled:opacity-50"
           >
-            <img
-              src="https://www.google.com/favicon.ico"
-              alt="Google"
-              className="w-5 h-5"
-            />
-            Sign in with Google
+            {isGoogleLoading ? (
+              <Loader2 size={20} className="animate-spin" />
+            ) : (
+            <>
+              <img
+                src="https://www.google.com/favicon.ico"
+                alt="Google"
+                className="w-5 h-5"
+              />
+              Sign in with Google
+            </>
+            )}
           </button>
         </div>
 
