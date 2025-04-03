@@ -14,7 +14,7 @@ const Home = () => {
   }
 
   return (
-    <div className='p-4'>
+    <div className='min-h-screen bg-gradient-to-b from-gray-900 via-black to-gray-900'>
       <Navbar/>
         <h1 className='text-2xl'>Hello, {user.displayName}</h1>
         <button onClick={logout} className='bg-red-500 text-white px-4 py-2 mt-4 rounded'>
