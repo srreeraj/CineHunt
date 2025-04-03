@@ -19,6 +19,12 @@ const Home = () => {
             Logout
         </button>
         <MovieCard/>
+        <MovieCard/>
+        <MovieCard/>
+        <MovieCard/>
+        <MovieCard/>
+        <MovieCard/>
+        <MovieCard/>
     </div>
   )
 }
