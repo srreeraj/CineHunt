@@ -99,48 +99,7 @@ const Home = () => {
         </div>
         
         {/* Movie Categories */}
-<div className="px-4 md:px-8 py-8 space-y-8">
-  <div className="space-y-4">
-    <div className="flex items-center justify-between">
-      <h2 className="text-xl md:text-2xl font-bold">Popular Movies</h2>
-      <button className="text-red-500 hover:text-red-400 flex items-center">
-        See all <ChevronRight size={20} />
-      </button>
-    </div>
-    <MovieCard title="Popular Movies" category="popular" />
-  </div>
-
-  <div className="space-y-4">
-    <div className="flex items-center justify-between">
-      <h2 className="text-xl md:text-2xl font-bold">Now Playing</h2>
-      <button className="text-red-500 hover:text-red-400 flex items-center">
-        See all <ChevronRight size={20} />
-      </button>
-    </div>
-    <MovieCard title="Now Playing" category="now_playing" />
-  </div>
-
-  <div className="space-y-4">
-    <div className="flex items-center justify-between">
-      <h2 className="text-xl md:text-2xl font-bold">Top Rated</h2>
-      <button className="text-red-500 hover:text-red-400 flex items-center">
-        See all <ChevronRight size={20} />
-      </button>
-    </div>
-    <MovieCard title="Top Rated" category="top_rated" />
-  </div>
-
-  <div className="space-y-4">
-    <div className="flex items-center justify-between">
-      <h2 className="text-xl md:text-2xl font-bold">Upcoming</h2>
-      <button className="text-red-500 hover:text-red-400 flex items-center">
-        See all <ChevronRight size={20} />
-      </button>
-    </div>
-    <MovieCard title="Upcoming" category="upcoming" />
-  </div>
-</div>
-        
+          <MovieCard/>        
         {/* Quick Categories */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 md:px-8 mb-8">
           <div className="bg-gradient-to-br from-red-900/60 to-red-600/60 rounded-lg p-4 hover:scale-105 transition-transform cursor-pointer flex items-center justify-between">
