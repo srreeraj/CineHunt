@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import MovieCard from '../../components/MovieCard/MovieCard';
 import Navbar from '../../components/Navbar/Navbar';
 import { Film, Tv, Heart, LogOut, ChevronRight } from 'lucide-react';
+import TitleCard from '../../components/TitleCard/TitleCard';
 
 const Home = () => {
   const { user, logout } = useAuth();
@@ -99,7 +99,11 @@ const Home = () => {
         </div>
         
         {/* Movie Categories */}
-          <MovieCard/>        
+          <TitleCard/>
+          <TitleCard title={"Blockbuster Movies"} category={"top_rated"}/>
+          <TitleCard title={"Only on Netflix"} category={"popular"}/>
+          <TitleCard title={"Upcoming"} category={"upcoming"}/>
+          <TitleCard title={"Top Pics for you"} category={"now_playing"}/>  
         {/* Quick Categories */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 px-4 md:px-8 mb-8">
           <div className="bg-gradient-to-br from-red-900/60 to-red-600/60 rounded-lg p-4 hover:scale-105 transition-transform cursor-pointer flex items-center justify-between">
